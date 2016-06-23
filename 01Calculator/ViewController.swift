@@ -48,7 +48,7 @@ class ViewController: UIViewController {
     
     // MARK:
     /* FIFTH VERSION *****************************************/
-    @IBAction func operateV5(sender: UIButton) {
+    @IBAction func operate(sender: UIButton) {
         let operation = sender.currentTitle!
         if userIsTypingANumber {
             enter()
