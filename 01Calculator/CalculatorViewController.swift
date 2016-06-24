@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  CalculatorViewController.swift
 //  01Calculator
 //
 //  Created by Julio Franco on 6/22/16.
@@ -8,11 +8,12 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class CalculatorViewController: UIViewController {
 
     @IBOutlet weak var display: UILabel!
     
     var userIsTypingANumber = false
+    var brain = CalculatorBrain()
 
     @IBAction func appendDigit(sender: UIButton) {
         let digit = sender.currentTitle!
@@ -25,11 +26,26 @@ class ViewController: UIViewController {
         }
     }
     
-    var operandStack = Array<Double>()
+    @IBAction func operate(sender: UIButton) {
+        if userIsTypingANumber {
+            enter()
+        }
+        if let operation = sender.currentTitle {
+            if let result = brain.performOperation(operation) {
+                displayValue = result
+            } else {
+                displayValue = 0
+            }
+        }
+    }
+
     @IBAction func enter() {
         userIsTypingANumber = false
-        operandStack.append(displayValue)
-        print(operandStack)
+        if let result = brain.pushOperand(displayValue) {
+            displayValue = result
+        } else {
+            displayValue = 0
+        }
     }
     
     // displayValue - Computed Property
@@ -46,9 +62,23 @@ class ViewController: UIViewController {
         }
     }
     
+    
+    
+    
+    /*****************************************/
+    // MARK: - Old Stuff
+    // This is the old stuff before the calculations were moved to the Model
+    
+    var operandStack = Array<Double>()
+    @IBAction func enter_Old() {
+        userIsTypingANumber = false
+        operandStack.append(displayValue)
+        print(operandStack)
+    }
+    
     // MARK:
-    /* FIFTH VERSION *****************************************/
-    @IBAction func operate(sender: UIButton) {
+    /* SIXTH VERSION *****************************************/
+    @IBAction func operateV6(sender: UIButton) {
         let operation = sender.currentTitle!
         if userIsTypingANumber {
             enter()
@@ -90,7 +120,7 @@ class ViewController: UIViewController {
     
     // MARK:
     /* FIFTH VERSION *****************************************/
-    @IBAction func operateV6(sender: UIButton) {
+    @IBAction func operateV5(sender: UIButton) {
         let operation = sender.currentTitle!
         if userIsTypingANumber {
             enter()
@@ -116,7 +146,7 @@ class ViewController: UIViewController {
     
     // MARK:
     /* FOURTH VERSION *****************************************/
-    @IBAction func operateV7(sender: UIButton) {
+    @IBAction func operateV4(sender: UIButton) {
         let operation = sender.currentTitle!
         if userIsTypingANumber {
             enter()
@@ -141,7 +171,7 @@ class ViewController: UIViewController {
     
     // MARK:
     /* THIRD VERSION *****************************************/
-    @IBAction func operateV8(sender: UIButton) {
+    @IBAction func operateV3(sender: UIButton) {
         let operation = sender.currentTitle!
         if userIsTypingANumber {
             enter()
@@ -166,7 +196,7 @@ class ViewController: UIViewController {
     
     // MARK:
     /* SECOND VERSION *****************************************/
-    @IBAction func operateV9(sender: UIButton) {
+    @IBAction func operateV2(sender: UIButton) {
         let operation = sender.currentTitle!
         if userIsTypingANumber {
             enter()
@@ -195,7 +225,7 @@ class ViewController: UIViewController {
     
     // MARK:
     /* FIRST VERSION *****************************************/
-    @IBAction func operateV10(sender: UIButton) {
+    @IBAction func operateV1(sender: UIButton) {
         let operation = sender.currentTitle!
         
         // When an operation button is pressed add digit to stack without having to press enter
