@@ -10,245 +10,41 @@ import UIKit
 
 class CalculatorViewController: UIViewController {
 
-    @IBOutlet weak var display: UILabel!
+    @IBOutlet private weak var display: UILabel!
     
-    var userIsTypingANumber = false
-    var brain = CalculatorBrain()
+    private var userIsInTheMiddleOfTyping = false
+    private var brain = CalculatorBrain()
 
-    @IBAction func appendDigit(sender: UIButton) {
+    @IBAction private func touchDigit(sender: UIButton) {
         let digit = sender.currentTitle!
-
-        if userIsTypingANumber {
+        if userIsInTheMiddleOfTyping {
             display.text = display.text! + digit
         } else {
             display.text = digit
-            userIsTypingANumber = true
         }
+        userIsInTheMiddleOfTyping = true
     }
     
-    @IBAction func operate(sender: UIButton) {
-        if userIsTypingANumber {
-            enter()
-        }
-        if let operation = sender.currentTitle {
-            if let result = brain.performOperation(operation) {
-                displayValue = result
-            } else {
-                displayValue = 0
-            }
-        }
-    }
-
-    @IBAction func enter() {
-        userIsTypingANumber = false
-        if let result = brain.pushOperand(displayValue) {
-            displayValue = result
-        } else {
-            displayValue = 0
-        }
-    }
-    
-    // displayValue - Computed Property
-    // Text on display will be converted from String to Double
-    // and double value when set will go as string into the display label
-    var displayValue: Double {
+    private var displayValue: Double {
         get {
-            // return Double(display.text!)!
-            return NSNumberFormatter().numberFromString(display.text!)!.doubleValue
+            return Double(display.text!)!
+            // return NSNumberFormatter().numberFromString(display.text!)!.doubleValue
         }
         set {
             display.text = "\(newValue)"
-            userIsTypingANumber = false
+            userIsInTheMiddleOfTyping = false
         }
     }
     
-    
-    
-    
-    /*****************************************/
-    // MARK: - Old Stuff
-    // This is the old stuff before the calculations were moved to the Model
-    
-    var operandStack = Array<Double>()
-    @IBAction func enter_Old() {
-        userIsTypingANumber = false
-        operandStack.append(displayValue)
-        print(operandStack)
-    }
-    
-    // MARK:
-    /* SIXTH VERSION *****************************************/
-    @IBAction func operateV6(sender: UIButton) {
-        let operation = sender.currentTitle!
-        if userIsTypingANumber {
-            enter()
+    @IBAction private func performOperation(sender: UIButton) {
+        if userIsInTheMiddleOfTyping {
+            brain.setOperand(displayValue)
+            userIsInTheMiddleOfTyping = false
         }
-        switch operation {
-        // Since performOperation: only has one argument which is a function and it 
-        // is the last argument, then we can move the function outside like so;
-        // case "×": performOperation({ $0 * $1 }) -> performOperation() { $0 * $1 }
-        // and since the method only has no other arguments, we can remove the parenthesis
-        case "×": performOperation { $0 * $1 }
-        case "÷": performOperation { $1 / $0 }
-        case "+": performOperation { $0 + $1 }
-        case "−": performOperation { $1 - $0 }
-        case "√": performOperation { sqrt($0) }
-        default:
-            break
+        if let mathematicalSymbol = sender.currentTitle {
+            brain.performOperation(mathematicalSymbol)
         }
-    }
-    
-    private func performOperation(operation: (Double, Double) -> Double) {
-        if operandStack.count >= 2 {
-            displayValue = operation(operandStack.removeLast(), operandStack.removeLast())
-            enter()
-        }
-    }
-    private func performOperation(operation: Double -> Double) {
-        if operandStack.count >= 1 {
-            displayValue = operation(operandStack.removeLast())
-            enter()
-        }
-    }
-    // Compiler Error: Method 'performOperation' with Objective-C selector 'perform: ' conflicts with previous declaration with the same Objective-C selector
-    // Objective-C does not support method overloading, you have to use a different method name. When 
-    // you inherited UIViewController you inherited NSObject and made the class interopable to Obj-C.
-    // To solve I made the methods private to disable inference from @objc, besides these methods should be private anyways.
-    // Other ways to solve: 1) remove UIViewController subclass. 2) add @nonobjc to top of the method
-    // http://stackoverflow.com/questions/29457720/compiler-error-method-with-objective-c-selector-conflicts-with-previous-declara
-    
-    
-    // MARK:
-    /* FIFTH VERSION *****************************************/
-    @IBAction func operateV5(sender: UIButton) {
-        let operation = sender.currentTitle!
-        if userIsTypingANumber {
-            enter()
-        }
-        switch operation {
-        // We dont need to name the paramenters, therefore
-        // case "×": performOperation({ (op1, op2) in op1 * op2 }) becomes
-        // case "×": performOperation({ (op1, op2) in $0 * $1 })
-        case "×": performOperation({ $0 * $1 })
-        //case "÷": performOperation(divide)
-        //case "+": ...
-        //case "−": ...
-        default:
-            break
-        }
-    }
-    func performOperationV6(operation: (Double, Double) -> Double) {
-        if operandStack.count >= 2 {
-            displayValue = operation(operandStack.removeLast(), operandStack.removeLast())
-            enter()
-        }
-    }
-    
-    // MARK:
-    /* FOURTH VERSION *****************************************/
-    @IBAction func operateV4(sender: UIButton) {
-        let operation = sender.currentTitle!
-        if userIsTypingANumber {
-            enter()
-        }
-        switch operation {
-        // From the signature of performOperation: it knows that it takes 2 Doubles, and
-        // returns a Double, so we can remove it down here
-        case "×": performOperation({ (op1, op2) in op1 * op2 })
-        //case "÷": performOperation(divide)
-        //case "+": ...
-        //case "−": ...
-        default:
-            break
-        }
-    }
-    func performOperationV7(operation: (Double, Double) -> Double) {
-        if operandStack.count >= 2 {
-            displayValue = operation(operandStack.removeLast(), operandStack.removeLast())
-            enter()
-        }
-    }
-    
-    // MARK:
-    /* THIRD VERSION *****************************************/
-    @IBAction func operateV3(sender: UIButton) {
-        let operation = sender.currentTitle!
-        if userIsTypingANumber {
-            enter()
-        }
-        switch operation {
-        case "×": performOperation({ (op1: Double, op2: Double) -> Double in
-            return op1 * op2
-        }) 
-        //case "÷": performOperation(divide)
-        //case "+": ...
-        //case "−": ...
-        default:
-            break
-        }
-    }
-    func performOperationV8(operation: (Double, Double) -> Double) {
-        if operandStack.count >= 2 {
-            displayValue = operation(operandStack.removeLast(), operandStack.removeLast())
-            enter()
-        }
-    }
-    
-    // MARK:
-    /* SECOND VERSION *****************************************/
-    @IBAction func operateV2(sender: UIButton) {
-        let operation = sender.currentTitle!
-        if userIsTypingANumber {
-            enter()
-        }
-        switch operation {
-        case "×": performOperation(multiply)
-        case "÷": performOperation(divide)
-        //case "+": ...
-        //case "−": ...
-        default:
-            break
-        }
-    }
-    func performOperationV9(operation: (Double, Double) -> Double) {
-        if operandStack.count >= 2 {
-            displayValue = operation(operandStack.removeLast(), operandStack.removeLast())
-            enter()
-        }
-    }
-    func multiply(op1: Double, op2: Double) -> Double {
-        return op1 * op2
-    }
-    func divide(op1: Double, op2: Double) -> Double {
-        return op1 / op2
-    }
-    
-    // MARK:
-    /* FIRST VERSION *****************************************/
-    @IBAction func operateV1(sender: UIButton) {
-        let operation = sender.currentTitle!
-        
-        // When an operation button is pressed add digit to stack without having to press enter
-        // i.e., '8' enter '6' enter 'x' becomes '8' enter '6' 'x'
-        if userIsTypingANumber {
-            enter()
-        }
-        switch operation {
-        case "×":
-            if operandStack.count >= 2 {
-                displayValue = operandStack.removeLast() * operandStack.removeLast()
-                enter()
-            }
-        case "÷":
-            if operandStack.count >= 2 {
-                displayValue = operandStack.removeLast() / operandStack.removeLast()
-                enter()
-            }
-        //case "+": ...
-        //case "−": ...
-        default:
-            break
-        }
+        displayValue = brain.result
     }
 
 }
