@@ -63,6 +63,7 @@ class CalculatorBrain {
     private func executePendingBinaryOperation() {
         if pending != nil {
             accumulator = pending!.binaryFuntion(pending!.firstOperand, accumulator)
+            pending = nil
         }
     }
     
