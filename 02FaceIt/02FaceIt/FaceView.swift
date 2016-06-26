@@ -11,6 +11,8 @@ import UIKit
 @IBDesignable
 class FaceView: UIView {
     
+    // MARK: Public API
+    
     @IBInspectable
     var scale: CGFloat = 0.9 { didSet { self.setNeedsDisplay() } }
     @IBInspectable
@@ -24,6 +26,19 @@ class FaceView: UIView {
     @IBInspectable
     var lineWidth: CGFloat = 5.0 { didSet { self.setNeedsDisplay() } }
     
+    // MARK: Constants
+    
+    private struct Ratios {
+        static let SkullRadiusToEyeOffset: CGFloat = 3
+        static let SkullRadiusToEyeRadius: CGFloat = 10
+        static let SkullRadiusToMouthWidth: CGFloat = 1
+        static let SkullRadiusToMouthHeight: CGFloat = 3
+        static let SkullRadiusToMouthOffset: CGFloat = 3
+        static let SkullRadiusToBrowOffset: CGFloat = 5
+    }
+    
+    // MARK: Gesture Handlers
+    
     func changeScale(recognizer: UIPinchGestureRecognizer) {
         switch recognizer.state {
         case .Changed,.Ended:
@@ -34,21 +49,14 @@ class FaceView: UIView {
         }
     }
     
+    // MARK: Private Implementation
+    
     private var skullRadius: CGFloat {
         return min(bounds.size.width, bounds.size.height) / 2 * scale
     }
     private var skullCenter: CGPoint {
         // return convertPoint(center, fromView: superview)
         return CGPoint(x: bounds.midX, y: bounds.midY)
-    }
-    
-    private struct Ratios {
-        static let SkullRadiusToEyeOffset: CGFloat = 3
-        static let SkullRadiusToEyeRadius: CGFloat = 10
-        static let SkullRadiusToMouthWidth: CGFloat = 1
-        static let SkullRadiusToMouthHeight: CGFloat = 3
-        static let SkullRadiusToMouthOffset: CGFloat = 3
-        static let SkullRadiusToBrowOffset: CGFloat = 5
     }
     
     private enum Eye {
@@ -133,6 +141,8 @@ class FaceView: UIView {
         path.lineWidth = lineWidth
         return path
     }
+    
+    // MARK: iOS Drawing Method
     
     override func drawRect(rect: CGRect) {
         color.set()

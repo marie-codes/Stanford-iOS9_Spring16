@@ -26,5 +26,7 @@ class EmotionsViewController: UIViewController {
         }
     }
 
+    // For logging ViewControllerCycle to console
+    let instance = getEmotionsMVCinstanceCount()
 
 }

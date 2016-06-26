@@ -17,6 +17,7 @@
 		C62F01131D1F5F38006C2A48 /* FaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62F01121D1F5F38006C2A48 /* FaceView.swift */; };
 		C62F01151D1FA3D8006C2A48 /* FacialExpression.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62F01141D1FA3D8006C2A48 /* FacialExpression.swift */; };
 		C62F01171D204310006C2A48 /* EmotionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62F01161D204310006C2A48 /* EmotionsViewController.swift */; };
+		C62F01191D2066EC006C2A48 /* VCL.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62F01181D2066EC006C2A48 /* VCL.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		C62F01121D1F5F38006C2A48 /* FaceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceView.swift; sourceTree = "<group>"; };
 		C62F01141D1FA3D8006C2A48 /* FacialExpression.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacialExpression.swift; sourceTree = "<group>"; };
 		C62F01161D204310006C2A48 /* EmotionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionsViewController.swift; sourceTree = "<group>"; };
+		C62F01181D2066EC006C2A48 /* VCL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VCL.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +110,7 @@
 				C62F00E71D1F5E6F006C2A48 /* Main.storyboard */,
 				C62F01121D1F5F38006C2A48 /* FaceView.swift */,
 				C62F01141D1FA3D8006C2A48 /* FacialExpression.swift */,
+				C62F01181D2066EC006C2A48 /* VCL.swift */,
 				C62F01111D1F5E8A006C2A48 /* Supporting Files */,
 			);
 			path = 02FaceIt;
@@ -276,6 +279,7 @@
 				C62F00E61D1F5E6F006C2A48 /* FaceViewController.swift in Sources */,
 				C62F01151D1FA3D8006C2A48 /* FacialExpression.swift in Sources */,
 				C62F01171D204310006C2A48 /* EmotionsViewController.swift in Sources */,
+				C62F01191D2066EC006C2A48 /* VCL.swift in Sources */,
 				C62F00E41D1F5E6F006C2A48 /* AppDelegate.swift in Sources */,
 				C62F01131D1F5F38006C2A48 /* FaceView.swift in Sources */,
 			);
@@ -502,6 +506,7 @@
 				C62F010A1D1F5E6F006C2A48 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C62F010B1D1F5E6F006C2A48 /* Build configuration list for PBXNativeTarget "02FaceItTests" */ = {
 			isa = XCConfigurationList;
@@ -510,6 +515,7 @@
 				C62F010D1D1F5E6F006C2A48 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C62F010E1D1F5E6F006C2A48 /* Build configuration list for PBXNativeTarget "02FaceItUITests" */ = {
 			isa = XCConfigurationList;
@@ -518,6 +524,7 @@
 				C62F01101D1F5E6F006C2A48 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
