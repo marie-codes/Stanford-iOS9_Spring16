@@ -20,6 +20,21 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q7e-Q4-vmz" customClass="FaceView" customModule="_2FaceIt" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="scale">
+                                        <real key="value" value="0.90000000000000002"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                        <color key="value" red="0.94901960780000005" green="0.72941176470000002" blue="0.1764705882" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="lineWidth">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="4lI-u3-a7v" appends="YES" id="tN6-YL-6ie"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -30,8 +45,16 @@
                             <constraint firstAttribute="trailing" secondItem="Q7e-Q4-vmz" secondAttribute="trailing" id="NAm-Ae-TGd"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="faceView" destination="Q7e-Q4-vmz" id="Can-PR-v6S"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="4lI-u3-a7v">
+                    <connections>
+                        <action selector="toggleEyes:" destination="BYZ-38-t0r" id="hZm-eB-2ff"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="567" y="464"/>
         </scene>
