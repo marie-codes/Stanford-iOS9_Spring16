@@ -13,17 +13,30 @@ class ImageViewController: UIViewController {
     var imageURL: NSURL? {
         didSet {
             image = nil // Clear out whatever image might have been showing
-            fetchImage()
+            if view.window != nil {
+                fetchImage()
+            }
         }
     }
     
     private func fetchImage() {
         if let url = imageURL {
-            if let imageData = NSData(contentsOfURL: url) {
-                image = UIImage(data: imageData)
+            spinner?.startAnimating()
+            dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
+                let contentsOfURL = NSData(contentsOfURL: url)
+                dispatch_async(dispatch_get_main_queue()) {
+                    if url == self.imageURL {
+                        if let imageData = contentsOfURL {
+                            self.image = UIImage(data: imageData)
+                        }
+                    } else {
+                        print("ignored data returned from url \(url)")
+                    }
+                }
             }
         }
     }
+    
     @IBOutlet weak var scrollView: UIScrollView! {
         didSet {
             scrollView.contentSize = imageView.frame.size
@@ -31,6 +44,9 @@ class ImageViewController: UIViewController {
             scrollView.maximumZoomScale = 1.25
         }
     }
+    
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    
     
     private var imageView = UIImageView() // frame: x:0 y: 0, width: 0, height: 0
     private var image: UIImage? {
@@ -45,6 +61,15 @@ class ImageViewController: UIViewController {
             // Later we will segue into this ImageVC and set the image, thus the scrollView will not be
             // instatiated yet
             scrollView?.contentSize = imageView.frame.size
+            
+            spinner?.stopAnimating()
+        }
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
+        if image == nil {
+            fetchImage()
         }
     }
     

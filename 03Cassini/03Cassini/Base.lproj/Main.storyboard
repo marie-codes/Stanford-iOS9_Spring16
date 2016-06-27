@@ -23,17 +23,24 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="qb7-w8-JEY"/>
                                 </connections>
                             </scrollView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="bHH-zT-etZ">
+                                <rect key="frame" x="282" y="281" width="37" height="37"/>
+                                <color key="color" red="0.0" green="0.45882352939999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Cus-wy-RTm" secondAttribute="bottom" id="5zI-yS-zob"/>
                             <constraint firstItem="Cus-wy-RTm" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="BTD-j8-51B"/>
                             <constraint firstAttribute="trailing" secondItem="Cus-wy-RTm" secondAttribute="trailing" id="MnI-qo-vgZ"/>
+                            <constraint firstItem="bHH-zT-etZ" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="PkT-D3-wwz"/>
+                            <constraint firstItem="bHH-zT-etZ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="p9t-WT-zbo"/>
                             <constraint firstItem="Cus-wy-RTm" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="vBY-H9-Dov"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="scrollView" destination="Cus-wy-RTm" id="USu-n0-x4A"/>
+                        <outlet property="spinner" destination="bHH-zT-etZ" id="NFH-ML-hUo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
