@@ -2,6 +2,7 @@
 Following the lecture videos of Stanford cs193p Spring 2016 and completing the demo projects done during class.
 
 The class website is http://www.stanford.edu/class/cs193p/cgi-bin/drupal/
+The class files can be found on https://drive.google.com/folderview?id=0B4p_Gl_xezmTX3lxdjVkNlE0Zkk&usp=sharing
 
 And the videos can be found on iTunes or Youtube:
 
